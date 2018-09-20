@@ -1,0 +1,55 @@
+.login-form label {
+    color: white;
+    text-align: center;
+    display: block;
+}
+
+#loginform-verifycode-image {
+    background-color: white;
+    padding: 2px;
+    margin-left: 40%;
+    margin-bottom: 10px;
+}
+
+.no-padd {
+    padding: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.login-logo {
+    color: #fff;
+    font-size: 15px;
+}
+
+.gallery .mix {
+    display: block !important;
+}
+
+#main-menu {
+    overflow: scroll;
+    height: 100%;
+    padding-bottom: 50px;
+}
+
+.modal-body {
+    display: flex;
+}
+
+.choosed-gal {
+    border: 2px solid green;
+}
+
+.chat_icon{
+    color: red;
+    font-size: 20px !important;
+    padding-left: 40% !important;
+    visibility: hidden;
+}
+
+.gallery{
+    height:115px;
+    padding-top: 5px !important;
+}
