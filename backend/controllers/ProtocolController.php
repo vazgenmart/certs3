@@ -8,6 +8,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use common\models\User;
 
 /**
  * ProtocolController implements the CRUD actions for Protocol model.
@@ -20,6 +22,20 @@ class ProtocolController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'view','index', 'delete','ajax-validation'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if(!Yii::$app->user->isGuest){
+                                return Yii::$app->user->identity->can(Yii::$app->controller->id,'');
+                            }
+                        }
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,8 +51,9 @@ class ProtocolController extends Controller
      */
     public function actionIndex()
     {
+        $query =  Yii::$app->user->identity->status == User::STATUS_ADMIN ? Protocol::find() : Protocol::find()->where(['user_id' => Yii::$app->user->id]);
         $dataProvider = new ActiveDataProvider([
-            'query' => Protocol::find(),
+            'query' => $query,
         ]);
 
         return $this->render('index', [
@@ -118,6 +135,7 @@ class ProtocolController extends Controller
      */
     protected function findModel($id)
     {
+        $model = Yii::$app->user->identity->status == User::STATUS_ADMIN ? Protocol::findOne($id) :Protocol::find()->where(['id' => $id])->andWhere(['user_id' => Yii::$app->user->id])->one();
         if (($model = Protocol::findOne($id)) !== null) {
             return $model;
         }

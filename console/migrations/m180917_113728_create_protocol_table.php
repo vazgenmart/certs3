@@ -21,7 +21,8 @@ class m180917_113728_create_protocol_table extends Migration
             'product_information' => $this->text(),
             'manufacturer_information' => $this->text(),
             'applicant_information' => $this->text(),
-            'is_valid' => $this->boolean()->defaultValue(false)
+            'is_valid' => $this->boolean()->defaultValue(false),
+            'user_id' => $this->integer()
         ]);
     }
 

@@ -16,6 +16,7 @@ use Yii;
  * @property string $manufacturer_information
  * @property string $applicant_information
  * @property int $is_valid
+ * @property int $user_id
  */
 class Protocol extends \yii\db\ActiveRecord
 {
@@ -34,7 +35,7 @@ class Protocol extends \yii\db\ActiveRecord
     {
         return [
             [['testing_laboratory_info', 'product_information', 'manufacturer_information', 'applicant_information'], 'string'],
-            [['sds', 'issue_date'], 'safe'],
+            [['sds', 'issue_date','user_id'], 'safe'],
             [['is_valid'], 'integer'],
             [['number_protocol'], 'string', 'max' => 255],
         ];
@@ -62,6 +63,7 @@ class Protocol extends \yii\db\ActiveRecord
             'manufacturer_information' => 'Информация о изготовителе',
             'applicant_information' => 'Информация о заявителе',
             'is_valid' => 'Соответствует требованиям',
+            'user_id' => 'Клиент',
         ];
     }
 
@@ -69,5 +71,11 @@ class Protocol extends \yii\db\ActiveRecord
     {
         $this->sds = unserialize($this->sds);
         return parent::afterFind();
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->user_id = Yii::$app->user->id;
+        return parent::beforeSave($insert);
     }
 }

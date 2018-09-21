@@ -35,7 +35,7 @@ class m130524_201442_init extends Migration
             'username' => 'admin',
             'name' => 'admin',
             'surname' => 'adminyan',
-            'password_hash' => Yii::$app->security->generatePasswordHash('admin55'),
+            'password_hash' => Yii::$app->security->generatePasswordHash('!@85sdfds!'),
             'email' => 'admin@admin.com',
             'authority_certificate' => 'test',
             'body_data' => 'test',
